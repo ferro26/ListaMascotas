@@ -1,49 +1,66 @@
 package mx.com.unam.listamascotas;
 
 import android.content.Intent;
-import android.media.Rating;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import mx.com.unam.listamascotas.adapter.*;
+import mx.com.unam.listamascotas.fragment.DetailFragment;
+import mx.com.unam.listamascotas.fragment.RecyclerViewFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Mascota> mascotas;
-    private RecyclerView rvMascotas;
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        switch(item.getItemId()){
+            case R.id.mcontact:
+                intent = new Intent(this,Contacto.class);
+                startActivity(intent);
+                break;
+            case R.id.macerca:
+                intent = new Intent(this,Acerca.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mascotas = new ArrayList<Mascota>();
+        this.toolbar = (Toolbar)findViewById(R.id.primaryActionBar);
+        this.tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        this.viewPager = (ViewPager)findViewById(R.id.viewPager);
 
-        mascotas.add(new Mascota("Mascota 1", 0,R.drawable.mascota1));
-        mascotas.add(new Mascota("Mascota 2", 0,R.drawable.mascota2));
-        mascotas.add(new Mascota("Mascota 3", 0,R.drawable.mascota3));
-        mascotas.add(new Mascota("Mascota 4", 0,R.drawable.mascota4));
-        mascotas.add(new Mascota("Mascota 5", 0,R.drawable.mascota5));
-        mascotas.add(new Mascota("Mascota 6", 0,R.drawable.mascota6));
-        mascotas.add(new Mascota("Mascota 7", 0,R.drawable.mascota7));
-        mascotas.add(new Mascota("Mascota 8", 0,R.drawable.mascota8));
-        mascotas.add(new Mascota("Mascota 9", 0,R.drawable.mascota9));
-        mascotas.add(new Mascota("Mascota 10", 0,R.drawable.mascota10));
+        if(toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
-        rvMascotas = (RecyclerView) findViewById(R.id.rvMascotas);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rvMascotas.setLayoutManager(llm);
 
-        MascotaAdapter ma = new MascotaAdapter(mascotas);
-
-        rvMascotas.setAdapter(ma);
+        this.setupViewPager();
 
         TextView starAction = (TextView) findViewById(R.id.starAction);
 
@@ -55,6 +72,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private List<Fragment> agregarFragments(){
+        List<Fragment> fragments = new ArrayList<Fragment>();
+
+        fragments.add(new RecyclerViewFragment());
+        fragments.add(new DetailFragment());
+
+        return fragments;
+    }
+
+    public void setupViewPager(){
+        this.viewPager.setAdapter(new PageAdapter(getSupportFragmentManager(),agregarFragments()));
+        this.tabLayout.setupWithViewPager(this.viewPager);
+
+        this.tabLayout.getTabAt(0).setIcon(R.drawable.home_512);
+        this.tabLayout.getTabAt(1).setIcon(R.drawable.dog_icon_87373);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
 
     public void siguiente(){
         Intent i = new Intent(MainActivity.this,RatingActivity.class);

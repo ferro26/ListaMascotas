@@ -1,4 +1,4 @@
-package mx.com.unam.listamascotas;
+package mx.com.unam.listamascotas.pojo;
 
 /**
  * Created by frodriguez on 27/06/16.

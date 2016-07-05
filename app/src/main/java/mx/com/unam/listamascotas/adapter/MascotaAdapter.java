@@ -1,4 +1,4 @@
-package mx.com.unam.listamascotas;
+package mx.com.unam.listamascotas.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,9 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
+import mx.com.unam.listamascotas.pojo.Mascota;
+import mx.com.unam.listamascotas.R;
 
 
 public class MascotaAdapter extends RecyclerView.Adapter<MascotaAdapter.MascotaViewHolder> {
