@@ -53,14 +53,14 @@ public class DetailFragment extends Fragment {
     private List<Mascota> getAllItemList(){
 
         List<Mascota> allItems = new ArrayList<Mascota>();
-        allItems.add(new Mascota("",1, R.drawable.mascota1));
-        allItems.add(new Mascota("",2, R.drawable.mascota1));
-        allItems.add(new Mascota("",3, R.drawable.mascota1));
-        allItems.add(new Mascota("",4, R.drawable.mascota1));
-        allItems.add(new Mascota("",5, R.drawable.mascota1));
-        allItems.add(new Mascota("",3, R.drawable.mascota1));
-        allItems.add(new Mascota("",1, R.drawable.mascota1));
-        allItems.add(new Mascota("",0, R.drawable.mascota1));
+        allItems.add(new Mascota(1,"",1, R.drawable.mascota1));
+        allItems.add(new Mascota(2,"",2, R.drawable.mascota1));
+        allItems.add(new Mascota(3,"",3, R.drawable.mascota1));
+        allItems.add(new Mascota(4,"",4, R.drawable.mascota1));
+        allItems.add(new Mascota(5,"",5, R.drawable.mascota1));
+        allItems.add(new Mascota(6,"",3, R.drawable.mascota1));
+        allItems.add(new Mascota(7,"",1, R.drawable.mascota1));
+        allItems.add(new Mascota(8,"",0, R.drawable.mascota1));
 
         return allItems;
     }

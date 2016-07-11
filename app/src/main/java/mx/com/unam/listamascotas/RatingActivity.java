@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import android.support.v7.widget.Toolbar;
 
 import mx.com.unam.listamascotas.adapter.MascotaAdapter;
+import mx.com.unam.listamascotas.db.ConstructorMascotas;
 import mx.com.unam.listamascotas.pojo.Mascota;
 
 public class RatingActivity extends AppCompatActivity {
@@ -24,14 +25,8 @@ public class RatingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
 
-        mascotas = new ArrayList<Mascota>();
-
-        mascotas.add(new Mascota("Mascota 1", 0,R.drawable.mascota1));
-        mascotas.add(new Mascota("Mascota 2", 0,R.drawable.mascota2));
-        mascotas.add(new Mascota("Mascota 5", 0,R.drawable.mascota5));
-        mascotas.add(new Mascota("Mascota 6", 0,R.drawable.mascota6));
-        mascotas.add(new Mascota("Mascota 8", 0,R.drawable.mascota8));
-
+        ConstructorMascotas DB = new ConstructorMascotas(getBaseContext());
+        mascotas = DB.obtenerTopFiveMacotas();
 
         rvMascotas = (RecyclerView) findViewById(R.id.rvMascotas2);
 

@@ -7,14 +7,16 @@ public class Mascota {
     private String name;
     private int rating;
     private  int foto;
+    private int id;
 
+    public Mascota() {
+    }
 
-    public Mascota(String name, int rating ,int foto ) {
+    public Mascota(int id, String name, int rating , int foto ) {
         this.setName(name);
         this.setRating(rating);
         this.setFoto(foto);
     }
-
 
     public String getName() {
         return name;
@@ -38,5 +40,13 @@ public class Mascota {
 
     public void setFoto(int foto) {
         this.foto = foto;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -10,18 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import mx.com.unam.listamascotas.R;
 import mx.com.unam.listamascotas.adapter.MascotaAdapter;
 import mx.com.unam.listamascotas.pojo.Mascota;
+import mx.com.unam.listamascotas.presentador.IRecyclerViewFragmentPresentador;
+import mx.com.unam.listamascotas.presentador.RecyclerViewFragmentPresentador;
 
 
-public class RecyclerViewFragment extends Fragment {
+public class RecyclerViewFragment extends Fragment implements IRecyclerViewFragmentView {
 
 
-    private ArrayList<Mascota> mascotas;
+    //private ArrayList<Mascota> mascotas;
     private RecyclerView rvMascotas;
+    private IRecyclerViewFragmentPresentador presenter;
 
     public RecyclerViewFragment() {
         // Required empty public constructor
@@ -35,28 +37,27 @@ public class RecyclerViewFragment extends Fragment {
         //return inflater.inflate(R.layout.fragment_recyclerview, container, false);
         View v = inflater.inflate(R.layout.fragment_recyclerview,container,false);
 
-        mascotas = new ArrayList<Mascota>();
-
-        mascotas.add(new Mascota("Mascota 1",0,R.drawable.mascota1));
-        mascotas.add(new Mascota("Mascota 2",0,R.drawable.mascota2));
-        mascotas.add(new Mascota("Mascota 3",0,R.drawable.mascota3));
-        mascotas.add(new Mascota("Mascota 4",0,R.drawable.mascota4));
-        mascotas.add(new Mascota("Mascota 5",0,R.drawable.mascota5));
-        mascotas.add(new Mascota("Mascota 6",0,R.drawable.mascota6));
-        mascotas.add(new Mascota("Mascota 7",0,R.drawable.mascota7));
-        mascotas.add(new Mascota("Mascota 8",0,R.drawable.mascota8));
-        mascotas.add(new Mascota("Mascota 9",0,R.drawable.mascota9));
-        mascotas.add(new Mascota("Mascota 10",0,R.drawable.mascota10));
-
         rvMascotas = (RecyclerView) v.findViewById(R.id.rvMascotas);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rvMascotas.setLayoutManager(llm);
-        MascotaAdapter ma = new MascotaAdapter(mascotas);
-        rvMascotas.setAdapter(ma);
+        presenter = new RecyclerViewFragmentPresentador(this, getContext());
 
         return v;
     }
 
+    @Override
+    public void generarLinearLayoutVertical() {
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvMascotas.setLayoutManager(llm);
+    }
+
+    @Override
+    public MascotaAdapter crearAdaptador(ArrayList<Mascota> mascotas) {
+        MascotaAdapter ma = new MascotaAdapter(mascotas);
+        return ma;
+    }
+
+    @Override
+    public void inicializarAdaptadorRV(MascotaAdapter adapter) {
+        rvMascotas.setAdapter(adapter);
+    }
 }
